@@ -5,7 +5,7 @@ function WalletConnected({ connectedAccount }: { connectedAccount: string }) {
   return (
     <>
       <p>{connectedAccount}</p>
-      <p>{isLoading ? "Loading.." : error ? "error" : balance}</p>
+      <p>BNB: {isLoading ? "Loading.." : error ? "error" : balance}</p>
       <button>Metamask Connected</button>
     </>
   );

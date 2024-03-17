@@ -11,14 +11,14 @@ function App() {
   if (error) console.log(error);
   if (symbol) console.log(symbol);
   const sendToken = async (toAddress: string, amount: number) => {
-    if (web3) {
+    if (connectedAccount && web3) {
       const erc20Token = new web3.eth.Contract(ABI, address);
       const value = web3.utils.toWei(amount, "ether");
       const txReceipt = await erc20Token.methods
         .transfer(toAddress, value)
         .send({ from: connectedAccount, gas: "600000" });
       console.log("Tx hash:", txReceipt.transactionHash);
-    }
+    } else console.log("error");
   };
   return (
     <>

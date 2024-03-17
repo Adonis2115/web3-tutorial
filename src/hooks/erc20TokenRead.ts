@@ -17,4 +17,18 @@ const useGetSymbol = () => {
   return { symbol: data, error, isLoading };
 };
 
-export { useGetSymbol };
+const useGetTokenBalance = (address: string) => {
+  const erc20Token = new web3.eth.Contract(ABI, address);
+  const { data, error, isLoading } = useSWR(
+    `balanceOf:${address}`,
+    async () => {
+      const balance = await erc20Token.methods.balanceOf(address).call();
+      return balance;
+    },
+    {
+      revalidateOnFocus: false,
+    }
+  );
+  return { balance: data, error, isLoading };
+};
+export { useGetSymbol, useGetTokenBalance };
